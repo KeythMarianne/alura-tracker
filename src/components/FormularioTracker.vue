@@ -17,6 +17,7 @@ import TemporizadorTracker from './TemporizadorTracker.vue';
 
 export default defineComponent({
     name: 'FormularioTracker',
+    emits: ['aoSalvarTarefa'],
     components: {
         TemporizadorTracker
     },
@@ -27,8 +28,12 @@ export default defineComponent({
     },
     methods: {
         finalizarTarefa (tempoDecorrido: number) : void { // No nosso evento customizado estamos enviando o tempo em segundos. Então queremos receber number | E o “finalizarTarefa” é um método que não retorna nada, então fica :void
-            console.log('tempo da tarefa', tempoDecorrido)
-            console.log('descricao da tarefa', this.descricao)
+            //console.log('tempo da tarefa', tempoDecorrido)
+            //console.log('descricao da tarefa', this.descricao)
+            this.$emit('aoSalvarTarefa', {
+                duracaoEmSegundos: tempoDecorrido,
+                descricao: this.descricao
+            })
             this.descricao = ''
         }
     }
