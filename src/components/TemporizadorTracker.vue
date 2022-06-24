@@ -7,6 +7,12 @@
             </span>
             <span>play</span>
         </button>
+        <button class="button" @click="pausar" :disabled="!cronometroRodando">
+            <span class="icon">
+                <i class="fas fa-pause"></i>
+            </span>
+            <span>pause</span>
+        </button>
         <button class="button" @click="finalizar" :disabled="!cronometroRodando"> <!-- adiciono dois pontos na frente para o Vue saber que o valor do atributo está linkado com o meu estado. Então se o meu cronômetro não está rodando, eu não posso finalizar -->
             <span class="icon">
                 <i class="fas fa-stop"></i>
@@ -25,6 +31,7 @@ export default defineComponent({
     CronometroTracker
   },
   name: 'TemporizadorTracker',
+  emits: ['aoTemporizadorTrackerFinalizado'],
   data () { //  o método data tem que retornar um objeto que representa quais são as informações pertinentes para esse componente
     return {
         tempoEmSegundos: 0,
@@ -42,9 +49,16 @@ export default defineComponent({
         }, 1000)
         // console.log('iniciando');
     },
+    pausar () {
+        this.cronometroRodando = false
+        clearInterval(this.cronometro)
+        // console.log('pausando');        
+    },
     finalizar () {
         this.cronometroRodando = false
         clearInterval(this.cronometro)
+        this.$emit('aoTemporizadorTrackerFinalizado', this.tempoEmSegundos)
+        this.tempoEmSegundos = 0
         // console.log('finalizando');        
     }
   }

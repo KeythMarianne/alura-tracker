@@ -4,11 +4,11 @@
     // columns indica que dentro teremos várias colunas
     // is-gapless indica que o espaçamento entre essas colunas não existe
     // is-multiline indica que ele pode permitir múltiplas linhas. -->
-    <div class="column is-one-quarter"> <!-- // tamanho = um quarto do tamanho disponível -->
+    <div class="column is-one-fifths"> <!-- // tamanho = um quinto do tamanho disponível -->
       <BarraLateral />
     </div>
 
-    <div class="column is-three-quarter"> <!-- // tamanho = três quartos do tamanho disponível -->
+    <div class="column is-four-fifths"> <!-- // tamanho = quarto quintos do tamanho disponível -->
       <FormularioTracker />
     </div>
       
