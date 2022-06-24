@@ -9,7 +9,7 @@
     </div>
 
     <div class="column is-three-quarter"> <!-- // tamanho = três quartos do tamanho disponível -->
-      <LadoFormulario />
+      <FormularioTracker />
     </div>
       
   </main>
@@ -18,13 +18,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import BarraLateral from './components/BarraLateral.vue'
-import LadoFormulario from './components/LadoFormulario.vue'
+import FormularioTracker from './components/FormularioTracker.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
     BarraLateral,
-    LadoFormulario
+    FormularioTracker
   }
 });
 </script>
