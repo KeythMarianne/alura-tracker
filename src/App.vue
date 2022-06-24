@@ -1,14 +1,14 @@
 <template>
-  <main class="columns is-gapless is-multiline"> <!--
+  <main class="columns is-gapless is-multiline" :class="{ 'modo-escuro' : modoEscuroAtivo }"> <!--
     // main encapsula e faz o layout de colunas usando classe do Bulma
     // columns indica que dentro teremos várias colunas
     // is-gapless indica que o espaçamento entre essas colunas não existe
     // is-multiline indica que ele pode permitir múltiplas linhas. -->
     <div class="column is-one-fifths"> <!-- // tamanho = um quinto do tamanho disponível -->
-      <BarraLateral />
+      <BarraLateral @aoTemaAlterado="trocarTema" />
     </div>
 
-    <div class="column is-four-fifths"> <!-- // tamanho = quarto quintos do tamanho disponível -->
+    <div class="column is-four-fifths conteudo"> <!-- // tamanho = quarto quintos do tamanho disponível -->
       <FormularioTracker @aoSalvarTarefa="salvarTarefa" />
         <div class="lista-tarefas">
           <TarefaTracker v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/>
@@ -36,7 +36,8 @@ export default defineComponent({
   },
   data () {
     return {
-      tarefas: [] as ITarefa[]
+      tarefas: [] as ITarefa[],
+      modoEscuroAtivo: false
     }
   },
   computed: {
@@ -47,6 +48,9 @@ export default defineComponent({
   methods: {
     salvarTarefa (tarefa: ITarefa) {
       this.tarefas.push(tarefa)
+    },
+    trocarTema (modoEscuroAtivo: boolean) {
+      this.modoEscuroAtivo = modoEscuroAtivo
     }
   }
 });
@@ -55,6 +59,20 @@ export default defineComponent({
 <style>
 .lista-tarefas {
   padding: 1.25rem;
+}
+
+main {
+  --bg-primario: #fff;
+  --texto-primario: #000;
+}
+
+main.modo-escuro {
+  --bg-primario: #2b2d42; 
+  --texto-primario: #ddd;
+}
+
+.conteudo {
+  background-color: var(--bg-primario);
 }
 
 </style>
