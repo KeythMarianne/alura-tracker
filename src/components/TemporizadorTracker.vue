@@ -1,34 +1,21 @@
 <template>
     <div class="is-flex is-align-items-center is-justify-content-space-between">
         <CronometroTracker :tempoEmSegundos="tempoEmSegundos" /> <!-- passamos o nosso valor de tempo em segundos via prop para o componente cronômetro. Então ele espera um tempo em segundos também -->
-        <button class="button" @click="iniciar" :disabled="cronometroRodando">
-            <span class="icon">
-                <i class="fas fa-play"></i>
-            </span>
-            <span>play</span>
-        </button>
-        <button class="button" @click="pausar" :disabled="!cronometroRodando">
-            <span class="icon">
-                <i class="fas fa-pause"></i>
-            </span>
-            <span>pause</span>
-        </button>
-        <button class="button" @click="finalizar" :disabled="!cronometroRodando"> <!-- adiciono dois pontos na frente para o Vue saber que o valor do atributo está linkado com o meu estado. Então se o meu cronômetro não está rodando, eu não posso finalizar -->
-            <span class="icon">
-                <i class="fas fa-stop"></i>
-            </span>
-            <span>stop</span>
-        </button>
+        <BotaoTracker @clicado="iniciar" icone="fas fa-play" texto="play" :desabilitado="cronometroRodando" />
+        <BotaoTracker @clicado="pausar" icone="fas fa-pause" texto="pause" :desabilitado="!cronometroRodando" />
+        <BotaoTracker @clicado="finalizar" icone="fas fa-stop" texto="stop" :desabilitado="!cronometroRodando" />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import CronometroTracker from './CronometroTracker.vue';
+import BotaoTracker from './BotaoTracker.vue';
 
 export default defineComponent({
   components: {
-    CronometroTracker
+    CronometroTracker,
+    BotaoTracker
   },
   name: 'TemporizadorTracker',
   emits: ['aoTemporizadorTrackerFinalizado'],
@@ -57,7 +44,7 @@ export default defineComponent({
     finalizar () {
         this.cronometroRodando = false
         clearInterval(this.cronometro)
-        this.$emit('aoTemporizadorTrackerFinalizado', this.tempoEmSegundos)
+        this.$emit('aoTemporizadorTrackerFinalizado', this.tempoEmSegundos) // utilizar o $emit para criar eventos utilizados na comunicação entre componentes
         this.tempoEmSegundos = 0
         // console.log('finalizando');        
     }
