@@ -12,9 +12,9 @@
       <FormularioTracker @aoSalvarTarefa="salvarTarefa" />
         <div class="lista-tarefas">
           <TarefaTracker v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/>
+          <BoxTracker v-if="listaEstaVazia">Você ainda não iniciou nenhuma tarefa.</BoxTracker>
         </div>
     </div>
-      
   </main>
 </template>
 
@@ -24,17 +24,24 @@ import BarraLateral from './components/BarraLateral.vue'
 import FormularioTracker from './components/FormularioTracker.vue'
 import TarefaTracker from './components/TarefaTracker.vue'
 import ITarefa from './interfaces/ITarefa'
+import BoxTracker from './components/BoxTracker.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
     BarraLateral,
     FormularioTracker,
-    TarefaTracker
+    TarefaTracker,
+    BoxTracker
   },
   data () {
     return {
       tarefas: [] as ITarefa[]
+    }
+  },
+  computed: {
+    listaEstaVazia() : boolean {
+      return this.tarefas.length === 0 // pq 3 e não 2 sinais de igual?
     }
   },
   methods: {
